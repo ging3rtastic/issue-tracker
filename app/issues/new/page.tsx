@@ -8,7 +8,7 @@ import { useForm, Controller }                      from 'react-hook-form';
 import { createIssueSchema }                        from "@/app/validationSchemas";
 import { useRouter }                                from 'next/navigation';
 import { zodResolver }                              from '@hookform/resolvers/zod';
-import { z }                                        from 'zod';
+import { set, z }                                        from 'zod';
 
 import FormErrorMessage                             from "@/app/components/FormErrorMessage";
 import axios                                        from 'axios';
@@ -25,7 +25,8 @@ const NewIssuePage = () => {
 
     const { register, control, handleSubmit, formState: { errors } } = useForm<CreateIssueForm>({resolver: zodResolver(createIssueSchema)});
 
-    const [error, setError] = useState('');
+    const [error, setError]     = useState('');
+    const [Loading, setLoading] = useState(false);
 
 
   return (
@@ -45,8 +46,10 @@ const NewIssuePage = () => {
             className = "space-y-4" 
             onSubmit  = {handleSubmit( async (data) => {
                     try {
+                        setLoading(true);
                         await axios.post('/api/issues/', data); 
                         router.push('/issues');
+                        setLoading(false);
                     } catch (error) {
                         setError("Failed to create issue. Please try again.");
                     }
@@ -64,7 +67,7 @@ const NewIssuePage = () => {
             <TextArea placeholder='Description' {...register("description")}/>
             <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
 
-            <Button type="submit">
+            <Button type="submit" loading={Loading}>
                 Create Issue
             </Button>
         </form>
