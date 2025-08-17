@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Process the request body as needed
-    console.log('Received POST request with body:', body);
+    // console.log('Received POST request with body:', body);
 
     return NextResponse.json(newIssue, {status: 201});
 }
