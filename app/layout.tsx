@@ -46,7 +46,7 @@ export default function RootLayout({
           <main className="container-fluid p-3">
             {children}
           </main>
-          <ThemePanel></ThemePanel>
+          {/* <ThemePanel></ThemePanel> */}
         </Theme>
       </body>
     </html>
