@@ -10,6 +10,7 @@ import { useRouter }                                from 'next/navigation';
 import { zodResolver }                              from '@hookform/resolvers/zod';
 import { z }                                        from 'zod';
 
+import FormErrorMessage                             from "@/app/components/FormErrorMessage";
 import axios                                        from 'axios';
 import Link                                         from 'next/link';
 import React, { useState }                          from 'react'
@@ -58,10 +59,10 @@ const NewIssuePage = () => {
                     <MdOutlineSubtitles />
                 </TextField.Slot>
             </TextField.Root>
-            {errors.title && <Text color="red" as="p">{errors.title.message}</Text>}
+            <FormErrorMessage>{errors.title?.message}</FormErrorMessage>
 
             <TextArea placeholder='Description' {...register("description")}/>
-            {errors.description && <Text color="red" as="p">{errors.description.message}</Text>}
+            <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
 
             <Button type="submit">
                 Create Issue
