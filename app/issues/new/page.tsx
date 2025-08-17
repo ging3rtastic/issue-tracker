@@ -8,7 +8,7 @@ import { useForm, Controller }                      from 'react-hook-form';
 import { createIssueSchema }                        from "@/app/validationSchemas";
 import { useRouter }                                from 'next/navigation';
 import { zodResolver }                              from '@hookform/resolvers/zod';
-import { set, z }                                        from 'zod';
+import { z }                                        from 'zod';
 
 import FormErrorMessage                             from "@/app/components/FormErrorMessage";
 import axios                                        from 'axios';

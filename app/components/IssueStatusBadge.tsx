@@ -2,9 +2,6 @@ import React                from 'react'
 import { IssueStatus }      from '../generated/prisma'
 import { Badge }            from '@radix-ui/themes'
 
-interface Props {
-    status : IssueStatus
-}
 
 const stausMap : Record<IssueStatus, {label : string, color: 'red' | 'green' | 'blue'}> = {
     open        : { label :'Open', color: 'red'},
