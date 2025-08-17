@@ -1,10 +1,16 @@
+"use client";
+
 import React                                from 'react'
 
-import { Button, TextArea, TextField }      from '@radix-ui/themes'
+import { Button,TextField }                 from '@radix-ui/themes'
 
 import { MdOutlineSubtitles }               from "react-icons/md";
 
 import Link                                 from 'next/link';
+
+import SimpleMDE                            from "react-simplemde-editor";
+
+import "easymde/dist/easymde.min.css";
 
 const NewIssuePage = () => {
   return (
@@ -15,9 +21,8 @@ const NewIssuePage = () => {
             </TextField.Slot>
         </TextField.Root>
 
-        <TextArea placeholder="Describe your issue...">
-        </TextArea>
-        
+        <SimpleMDE/>
+
         <Button>
             <Link href="/issues/new">Create Issue</Link>
         </Button>
