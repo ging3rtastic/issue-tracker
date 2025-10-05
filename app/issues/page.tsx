@@ -1,11 +1,11 @@
 import React              from 'react'
-import Link               from 'next/link';
 
-import { Badge, Button, Table }  from "@radix-ui/themes";
+import { Badge, Button, Table}  from "@radix-ui/themes";
+
+import Link               from '@/app/components/Link';
 
 import prisma             from '@/lib/prisma';
-import { is } from 'zod/v4/locales';
-import IssueStatusBadge from '../components/IssueStatusBadge';
+import IssueStatusBadge   from '../components/IssueStatusBadge';
 
 const IssuesPage = async () => {
 
@@ -31,10 +31,10 @@ const IssuesPage = async () => {
               <Table.RowHeaderCell>
                 <Link href={`/issues/${issue.id}`}>
                   {issue.title}
-                  <div className='sm:hidden'>
-                    <IssueStatusBadge status={issue.status} />
-                  </div>
                 </Link>
+                <div className='sm:hidden'>
+                  <IssueStatusBadge status={issue.status} />
+                </div>
               </Table.RowHeaderCell>
               <Table.Cell className='hidden md:table-cell'>{issue.description}</Table.Cell>
               <Table.Cell className='hidden sm:table-cell'>
