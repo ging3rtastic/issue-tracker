@@ -1,7 +1,7 @@
 "use client";
 
 import { updateIssueSchema }                            from '@/app/validationSchemas';
-import { Button, Callout, Grid, Select, TextArea, TextField } from '@radix-ui/themes';
+import { AlertDialog, Button, Callout, Grid, Select, TextArea, TextField } from '@radix-ui/themes';
 import { useRouter }                                    from 'next/navigation';
 import React, {useState}                                from 'react'
 import { useForm }                                      from 'react-hook-form';
@@ -11,6 +11,7 @@ import { zodResolver }                                  from '@hookform/resolver
 import FormErrorMessage                                 from '../components/FormErrorMessage';
 import axios                                            from 'axios';
 import { Issue, IssueStatus }                           from '../generated/prisma';
+import IssueDeleteButton                                from './_components/IssueDeleteButton';
 
 type updateIssueForm = z.infer<typeof updateIssueSchema>;
 
@@ -98,6 +99,25 @@ const IssueForm = ({issue} : IssueFormProps) => {
                 Update Issue
             </Button>
         </form>
+        
+        <Button className='cursor-pointer' color='red' disabled={Loading} onClick={ async () => {
+            try {
+                setLoading(true);
+                await axios.delete('/api/issues/' + issue?.id); 
+                router.push('/issues');
+                setLoading(false);
+            }
+            catch (error) {
+                setError("Failed to delete issue. Please try again.");
+                }
+            }}
+        >
+            X
+        </Button>
+
+        <IssueDeleteButton />
+            
+            
     </div>
   )
 }
