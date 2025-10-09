@@ -1,7 +1,7 @@
 "use client";
 
 import { updateIssueSchema }                            from '@/app/validationSchemas';
-import { Button, Callout, Select, TextArea, TextField } from '@radix-ui/themes';
+import { Button, Callout, Grid, Select, TextArea, TextField } from '@radix-ui/themes';
 import { useRouter }                                    from 'next/navigation';
 import React, {useState}                                from 'react'
 import { useForm }                                      from 'react-hook-form';
@@ -25,7 +25,16 @@ const IssueForm = ({issue} : IssueFormProps) => {
     const [error, setError]     = useState('');
     const [Loading, setLoading] = useState(false);
 
-    const { register, control, handleSubmit, formState: { errors } } = useForm<updateIssueForm>({resolver: zodResolver(updateIssueSchema)});
+    const { register, control, handleSubmit, formState: { errors } } = useForm<updateIssueForm>(
+        {
+            resolver      : zodResolver(updateIssueSchema),
+            defaultValues : {
+                title       : issue?.title,
+                description : issue?.description || '',
+                status      : issue?.status as IssueStatus || 'OPEN',
+            }
+        }
+    );
 
   return (
     <div className="flex flex-col mx-auto max-w-xl space-y-4">
@@ -45,17 +54,17 @@ const IssueForm = ({issue} : IssueFormProps) => {
             onSubmit  = {handleSubmit( async (data) => {
                     try {
                         setLoading(true);
-                        await axios.post('/api/issues/', data); 
+                        await axios.patch('/api/issues/' + issue?.id, data); 
                         router.push('/issues');
                         setLoading(false);
                     } catch (error) {
-                        setError("Failed to create issue. Please try again.");
+                        setError("Failed to update issue. Please try again.");
                     }
                 }
             )}
         >
            
-            <TextField.Root placeholder="Title for your issue..." {...register("title")} value={issue?.title || ''}>
+            <TextField.Root placeholder="Title for your issue..." {...register("title")} spellCheck={true}>
                 <TextField.Slot>
                     <MdOutlineSubtitles />
                 </TextField.Slot>
@@ -82,10 +91,10 @@ const IssueForm = ({issue} : IssueFormProps) => {
                 </Select.Content>
             </Select.Root>
 
-            <TextArea placeholder='Description' {...register("description")} value={issue?.description || ''}/>
+            <TextArea placeholder='Description' {...register("description")} spellCheck={true}/>
             <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
 
-            <Button type="submit" loading={Loading}>
+            <Button type="submit" disabled={Loading}>
                 Update Issue
             </Button>
         </form>

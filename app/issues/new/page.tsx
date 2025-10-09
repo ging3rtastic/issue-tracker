@@ -2,7 +2,7 @@
 
 import { Button,Callout,TextArea,TextField,Text }   from '@radix-ui/themes'
 import { MdOutlineSubtitles, MdErrorOutline }       from "react-icons/md";
-import { useForm, Controller }                      from 'react-hook-form';
+import { useForm }                                  from 'react-hook-form';
 import { createIssueSchema }                        from "@/app/validationSchemas";
 import { useRouter }                                from 'next/navigation';
 import { zodResolver }                              from '@hookform/resolvers/zod';
@@ -10,7 +10,6 @@ import { z }                                        from 'zod';
 
 import FormErrorMessage                             from "@/app/components/FormErrorMessage";
 import axios                                        from 'axios';
-import Link                                         from 'next/link';
 import React, { useState }                          from 'react'
 
 // import SimpleMDE                            from "react-simplemde-editor";

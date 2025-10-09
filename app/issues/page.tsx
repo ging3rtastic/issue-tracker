@@ -1,11 +1,11 @@
-import React              from 'react'
+import React                    from 'react'
 
-import { Badge, Button, Table}  from "@radix-ui/themes";
+import { Button, Table}         from "@radix-ui/themes";
 
-import Link               from '@/app/components/Link';
+import {Link, IssueStatusBadge} from '@/app/components';
 
-import prisma             from '@/lib/prisma';
-import IssueStatusBadge   from '../components/IssueStatusBadge';
+import prisma                   from '@/lib/prisma';
+
 
 const IssuesPage = async () => {
 
@@ -51,5 +51,7 @@ const IssuesPage = async () => {
     </div>
   )
 }
+
+export const dynamic = 'force-dynamic';
 
 export default IssuesPage
