@@ -8,6 +8,7 @@ import { GiFire }       from "react-icons/gi";
 
 import classNames       from 'classnames';
 
+
 const NavBar = () => {
 
     const currentPath = usePathname();

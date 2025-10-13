@@ -115,7 +115,7 @@ const IssueForm = ({issue} : IssueFormProps) => {
             X
         </Button>
 
-        <IssueDeleteButton />
+        <IssueDeleteButton issueId={issue?.id} />
             
             
     </div>
