@@ -1,6 +1,11 @@
-import { signIn } from "@/auth"
+import { signIn } from "@/auth";
 
-export default function SignIn() {
+export default async function SignInPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ callbackUrl?: string }>;
+}) {
+  const params = await searchParams;
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
@@ -10,17 +15,17 @@ export default function SignIn() {
           <div className="text-center space-y-2">
             <div className="flex justify-center mb-4">
               <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
-                <svg 
-                  className="w-8 h-8 text-white" 
-                  fill="none" 
-                  stroke="currentColor" 
+                <svg
+                  className="w-8 h-8 text-white"
+                  fill="none"
+                  stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth={2} 
-                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" 
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
                   />
                 </svg>
               </div>
@@ -32,8 +37,10 @@ export default function SignIn() {
           {/* Sign In Form */}
           <form
             action={async () => {
-              "use server"
-              await signIn("google")
+              "use server";
+              await signIn("google", {
+                redirectTo: params?.callbackUrl || "/",
+              });
             }}
             className="space-y-4"
           >
@@ -79,12 +86,18 @@ export default function SignIn() {
 
           {/* Footer */}
           <p className="text-center text-sm text-gray-500">
-            By continuing, you agree to our{' '}
-            <a href="#" className="text-blue-600 hover:text-blue-700 font-medium">
+            By continuing, you agree to our{" "}
+            <a
+              href="#"
+              className="text-blue-600 hover:text-blue-700 font-medium"
+            >
               Terms of Service
-            </a>{' '}
-            and{' '}
-            <a href="#" className="text-blue-600 hover:text-blue-700 font-medium">
+            </a>{" "}
+            and{" "}
+            <a
+              href="#"
+              className="text-blue-600 hover:text-blue-700 font-medium"
+            >
               Privacy Policy
             </a>
           </p>
@@ -92,12 +105,15 @@ export default function SignIn() {
 
         {/* Additional Info */}
         <p className="text-center text-sm text-gray-500 mt-6">
-          Don't have an account?{' '}
-          <a href="#" className="text-blue-600 hover:text-blue-700 font-semibold">
+          Don't have an account?{" "}
+          <a
+            href="#"
+            className="text-blue-600 hover:text-blue-700 font-semibold"
+          >
             Contact sales
           </a>
         </p>
       </div>
     </div>
-  )
+  );
 }
