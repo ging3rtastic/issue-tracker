@@ -8,6 +8,7 @@ import type { Metadata }            from "next";
 import { Inter }                    from "next/font/google";
 
 import NavBar                       from "./NavBar";
+import { Providers }                from "./providers";
 
 
 const inter = Inter({
@@ -31,12 +32,14 @@ export default function RootLayout({
       <body
         className={`${inter.variable} antialiased`}
       >
-        <Theme accentColor="cyan" radius="large" scaling="110%">          
-          <NavBar></NavBar>
-          <main className="container-fluid p-3">
-            {children}
-          </main>
-          {/* <ThemePanel></ThemePanel> */}
+        <Theme accentColor="cyan" radius="large" scaling="110%">
+          <Providers>
+            <NavBar></NavBar>
+            <main className="container-fluid p-3">
+              {children}
+            </main>
+            {/* <ThemePanel></ThemePanel> */}
+          </Providers>
         </Theme>
       </body>
     </html>
